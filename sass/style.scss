@@ -1,8 +1,75 @@
-$primary-color: red;
-$secundary-color:orange;
-$primary-bg-color: rgb(148, 4, 4);
-$secundary-bg-color: black;
+@import "_variables";
+@import "_mixins";
 
 body{
     background-color: $primary-bg-color;
+    color:white;
 }
+
+.nav-container{
+    ul{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        list-style: none;
+        li{
+            padding: 20px;
+            a{
+                color:$secundary-text-color;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.main-container{
+    .title{
+        @include center-element()
+    }
+
+    .items-container{
+        @include center-element()
+    }
+}
+
+.btn{
+    padding: 10px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.btn-primary{
+    @extend .btn;
+    background-color: $primary-color;
+    color: white;
+    border:none;
+}
+
+.btn-secundary{
+    @extend .btn;
+    background-color: $secundary-color;
+    color: white;
+    border:none;
+}
+
+.btn-warning{
+    @extend .btn;
+    background-color: $primary-color;
+    color: white;
+    border:none;
+}
+
+.btn-danger{
+    @extend .btn;
+    background-color: $secundary-color;
+    color: white;
+    border:none;
+}
+
+
+// Top level statements
+// 1.Imports
+// 2.Definicion de Mixins
+// 3.Definicion de funciones
+// 4.Definicion de Modulos
+// 5.Definicion de Variables
