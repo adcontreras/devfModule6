@@ -1,27 +1,42 @@
 import { useEffect, useState } from "react";
-import './Items.scss';
+import { getItems } from "../../services/itemServices";
+import { Link } from 'react-router-dom';
+import "./Items.scss";
 
 export default function Items() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [items, setItems] = useState([])
+  useEffect(() => { //con useEffect estamos llamando a la Api y con la constante de abajo le estamos diciendo que hacer cuando aparezca la API y SOLO se ejecutará una vez 
+    const getData = async () => {
+      try {
+        const response = await getItems();
+        setItems(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log("el error se produjo por ", error);
+      }
+    };
+    getData();
+  }, []);
 
-  useEffect(() =>{
-    fetch('https://api-pelis-back.onrender.com/celulares')
-    .then(res => res.json())
-    .then(data => setItems(data.celulares))
-  }, [])
-  return (
+  if (loading) {  // mientras se carga la API mostraremos un loading, puede ponerse un simbolo de cargar 
+    return <h1>Loading...</h1>;
+  } else {
+    return (
     <section className="items-container">
-    <div className="items">
-        {items.map(item => (
-            <div key={item.title} className="item">
-                <h3>{item.title}</h3>
-                <p>{item.price}</p>
-                <img src={item.image} />
-            </div>
-        ))
-}
-    </div>
-</section>
-  )
+      <div className="items">
+        {items.map((item) => (
+         <Link to={`/item/${item.id}`} key={item.id}>
+          <div  className="item">
+            <img src={item.image} />
+            <h3>{item.product_name}</h3>
+            <p>{item.price}</p>
+          </div>
+         </Link>
+        ))}
+      </div>
+    </section>
+    )
+  }
 }

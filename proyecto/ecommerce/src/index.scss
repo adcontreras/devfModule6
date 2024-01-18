@@ -3,6 +3,14 @@
 @import './sass/abstracts/mixins.scss';
 @import './sass/base/base.scss';
 
-h1{
-  color:$primary-color;
+h1 {
+  color: $primary-color;
+}
+
+.main-content {
+  display: flex;
+  position: absolute;
+  .main-aside{
+    position: fixed;
+  }
 }
